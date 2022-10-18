@@ -1,0 +1,17 @@
+version: '3'
+
+services:
+  storehousebd:
+    image: postgres
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=storehousebd
+    volumes:
+      #- ${PWD}/StorehouseBD/:/db
+      - ${PWD}/StorehouseBD/sql:/docker-entrypoint-initdb.d
+  storehousems:
+    build: ./StorehouseMS
+  #miniconsole3:
+    #build: ./MiniConsole3
+
+
