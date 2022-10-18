@@ -1,4 +1,4 @@
-package ru.bmstu.curs_project_strpo.storehousems;
+package ru.bmstu.curs_project_strpo.customerms;
 
 import org.springframework.stereotype.Component;
 
@@ -6,14 +6,13 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-//Класс, содержащий функции для работы с таблицей "Book"
 @Component
-public class BookDao
+public class CustomerDao
 {
-    //private static final String URL = "jdbc:postgresql://storehousebd:5432/storehousebd";
-    private static final String URL = "jdbc:postgresql://localhost:5440/storehousebd";
+    //private static final String URL = "jdbc:postgresql://storehousebd:5432/customerbd";
+    private static final String URL = "jdbc:postgresql://localhost:5432/customerbd";
     private static final String USERNAME = "postgres";
-    private static final String PASSWORD = "storehousebd";
+    private static final String PASSWORD = "customerbd";
 
     //Создание и настройка соединения с базой данных
     private static Connection connection;
@@ -32,30 +31,31 @@ public class BookDao
     }
 
     //Метод для поиска всех книг в базе данных
-    public List<Book> show_all()
+    public List<Customer> show_all()
     {
-        List<Book> books = new ArrayList<>();
+        List<Customer> customers = new ArrayList<>();
         try
         {
             PreparedStatement prst = connection.
-                    prepareStatement("SELECT * FROM books;");
+                    prepareStatement("SELECT * FROM customers;");
             ResultSet resultSet = prst.executeQuery();
             while(resultSet.next())
             {
-                Book book = new Book();
-                book.setId((resultSet.getInt("id")));
-                book.setTitle(resultSet.getString("title"));
-                book.setAuthor(resultSet.getString("author"));
-                book.setGenre(resultSet.getString("genre"));
-                book.setYear(resultSet.getInt("year"));
-                book.setCount(resultSet.getInt("count"));
-                books.add(book);
+                Customer customer = new Customer();
+                customer.setId((resultSet.getInt("id")));
+                customer.setLogin((resultSet.getString("login")));
+                customer.setPassword((resultSet.getString("password")));
+                customer.setFirst_name((resultSet.getString("first_name")));
+                customer.setLast_name((resultSet.getString("last_name")));
+                customer.setCurrency(resultSet.getInt("currency"));
+                customers.add(customer);
             }
         }
         catch (SQLException e)
         {
             e.printStackTrace();
         }
-        return books;
+        return customers;
     }
+
 }

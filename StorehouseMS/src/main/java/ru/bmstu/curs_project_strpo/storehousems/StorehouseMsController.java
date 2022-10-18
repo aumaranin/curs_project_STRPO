@@ -1,6 +1,7 @@
 package ru.bmstu.curs_project_strpo.storehousems;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -26,7 +27,20 @@ public class StorehouseMsController
     {
         String res = "";
         List<Book> books = bookDao.show_all();
-        System.out.println(books);
+        Book book = books.get(0);
+        res = book.getTitle() + " " + book.getAuthor() + " " + book.getGenre() + " " + book.getYear()+ " " + book.getCount();
+        //System.out.println(books);
+        return res;
+    }
+
+    @GetMapping("/test")
+    public String test()
+    {
+        String res = "";
+        List<Book> books = bookDao.show_all();
+        Book book = books.get(0);
+        res = book.getTitle() + " " + book.getAuthor() + " " + book.getGenre() + " " + book.getYear()+ " " + book.getCount();
+        //System.out.println(books);
         return res;
     }
 }
