@@ -18,26 +18,27 @@ services:
     image: postgres
     container_name: customerbd
     ports:
-      - "5432:5432"
+      - "5441:5432"
     environment:
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=customerbd
     volumes:
       - ${PWD}/CustomerBD:/docker-entrypoint-initdb.d
 
-  #storehousems:
-  #  build: ./StorehouseMS
-  #  container_name: storehousems
-  #  ports:
-  #    - "8080:8080"
+  storehousems:
+    build: ./StorehouseMS
+    container_name: storehousems
+    ports:
+      - "8040:8080"
 
-  #customerms:
-  #  build: ./CustomerMS
-  #  container_name: customerms
-  #  ports:
-  #    - "8090:8080"
-  #miniconsole3:
-  #  build: ./MiniConsole3
-  #  container_name: mini-console3
+  customerms:
+    build: ./CustomerMS
+    container_name: customerms
+    ports:
+      - "8041:8080"
+  
+  miniconsole3:
+    build: ./MiniConsole3
+    container_name: mini-console3
 
 
