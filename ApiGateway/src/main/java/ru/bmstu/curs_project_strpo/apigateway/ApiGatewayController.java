@@ -8,12 +8,11 @@ import org.springframework.web.bind.annotation.RestController;
 public class ApiGatewayController
 {
     @PostMapping("/auth")
-    public String auth(@RequestBody AuthRequest request)
+    public String auth(@RequestBody AuthRequest authRequest)
     {
-        System.out.println(request.getOperation());
-        System.out.println(request.getLogin());
-        System.out.println(request.getPassword());
-
+        System.out.println(authRequest.getOperation());
+        System.out.println(authRequest.getLogin());
+        System.out.println(authRequest.getPassword());
         return "OK";
     }
 }

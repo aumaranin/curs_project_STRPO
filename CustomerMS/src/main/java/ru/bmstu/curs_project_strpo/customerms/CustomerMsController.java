@@ -3,6 +3,7 @@ package ru.bmstu.curs_project_strpo.customerms;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
@@ -36,10 +37,12 @@ public class CustomerMsController
     }
 
     @PostMapping("/auth")
-    public String auth()
+    public AuthResponse auth(@RequestBody AuthRequest authRequest)
     {
-        return "OK";
+        System.out.println("Получен запрос");
+
+        AuthResponse result = customerDao.auth(authRequest.getLogin(), authRequest.getPassword());
+        AuthResponse responseToApiGateway = new AuthResponse();
+        return responseToApiGateway;
     }
-
-
 }

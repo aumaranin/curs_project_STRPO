@@ -25,20 +25,20 @@ services:
     volumes:
       - ${PWD}/CustomerBD:/docker-entrypoint-initdb.d
 
-  storehousems:
-    build: ./StorehouseMS
-    container_name: storehousems
-    ports:
-      - "8040:8080"
+  # storehousems:
+  #   build: ./StorehouseMS
+  #   container_name: storehousems
+  #   ports:
+  #     - "8040:8080"
 
-  customerms:
-    build: ./CustomerMS
-    container_name: customerms
-    ports:
-      - "8041:8080"
+  # customerms:
+  #   build: ./CustomerMS
+  #   container_name: customerms
+  #   ports:
+  #     - "8041:8080"
   
-  miniconsole3:
-    build: ./MiniConsole3
-    container_name: mini-console3
+  # miniconsole3:
+  #   build: ./MiniConsole3
+  #   container_name: mini-console3
 
 

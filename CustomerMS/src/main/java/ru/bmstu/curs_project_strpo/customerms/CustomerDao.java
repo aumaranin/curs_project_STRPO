@@ -9,10 +9,10 @@ import java.util.List;
 @Component
 public class CustomerDao
 {
-    //private static final String URL = "jdbc:postgresql://storehousebd:5432/customerbd";
-    private static final String URL = "jdbc:postgresql://localhost:5432/customerbd";
+    private static String URL = "jdbc:postgresql://localhost:5441/customerbd";;
     private static final String USERNAME = "postgres";
     private static final String PASSWORD = "customerbd";
+
 
     //Создание и настройка соединения с базой данных
     private static Connection connection;
@@ -56,6 +56,29 @@ public class CustomerDao
             e.printStackTrace();
         }
         return customers;
+    }
+
+    public AuthResponse auth(String login, String password)
+    {
+        AuthResponse authResponse = new AuthResponse();
+        authResponse.setOperation("auth");
+        try
+        {
+            PreparedStatement prst = connection.prepareStatement(
+                    "SELECT * FROM customers WHERE login=? AND password=?;");
+            prst.setString(1, login);
+            prst.setString(2, password);
+            ResultSet resultSet = prst.executeQuery();
+            if (resultSet.next())
+                authResponse.setResult("confirm");
+            else
+                authResponse.setResult("deny");
+        }
+        catch (SQLException e)
+        {
+            e.printStackTrace();
+        }
+        return authResponse;
     }
 
 }
