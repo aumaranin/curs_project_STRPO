@@ -2,6 +2,7 @@ package ru.bmstu.curs_project_strpo.customerms;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
@@ -33,4 +34,12 @@ public class CustomerMsController
 
         //return "123123123";
     }
+
+    @PostMapping("/auth")
+    public String auth()
+    {
+        return "OK";
+    }
+
+
 }
