@@ -1,4 +1,4 @@
-package ru.bmstu.curs_project_strpo.apigateway;
+package ru.bmstu.curs_project_strpo.customerms.auth;
 
 public class AuthRequest
 {

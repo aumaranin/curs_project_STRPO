@@ -1,4 +1,8 @@
-package ru.bmstu.curs_project_strpo.customerms;
+package ru.bmstu.curs_project_strpo.apigateway.customer;
+
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
 
 public class AuthRequest
 {
@@ -46,5 +50,21 @@ public class AuthRequest
     public void setPassword(String password)
     {
         this.password = password;
+    }
+
+    @Override
+    public String toString()
+    {
+        ObjectMapper objectMapper = new ObjectMapper();
+        objectMapper.configure(SerializationFeature.INDENT_OUTPUT, true);
+        String jsonResult = null;
+        try
+        {
+            jsonResult = objectMapper.writeValueAsString(this);
+        } catch (JsonProcessingException e)
+        {
+            throw new RuntimeException(e);
+        }
+        return jsonResult;
     }
 }

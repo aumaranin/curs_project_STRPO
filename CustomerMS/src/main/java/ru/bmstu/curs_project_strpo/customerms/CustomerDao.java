@@ -1,6 +1,8 @@
 package ru.bmstu.curs_project_strpo.customerms;
 
 import org.springframework.stereotype.Component;
+import ru.bmstu.curs_project_strpo.customerms.auth.AuthResponse;
+import ru.bmstu.curs_project_strpo.customerms.registration.RegistrationResponse;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -79,6 +81,47 @@ public class CustomerDao
             e.printStackTrace();
         }
         return authResponse;
+    }
+
+    public RegistrationResponse registration(
+            String login,
+            String password,
+            String first_name,
+            String last_name)
+    {
+        RegistrationResponse registrationResponse = new RegistrationResponse();
+        registrationResponse.setOperation("registration");
+        try
+        {
+            //Проверка, зарегистрирован ли пользователь с таким же логином
+            PreparedStatement prst = connection.prepareStatement(
+                    "SELECT * FROM customers WHERE login=?");
+            prst.setString(1, login);
+            ResultSet resultSet = prst.executeQuery();
+            if (resultSet.next())
+                registrationResponse.setResult("deny");
+            else
+            {
+                prst = connection.prepareStatement(
+                        "INSERT INTO customers (login, password, first_name, last_name, currency) " +
+                                "VALUES (?, ?, ?, ?, 0);");
+                prst.setString(1, login);
+                prst.setString(2, password);
+                prst.setString(3, first_name);
+                prst.setString(4, last_name);
+                prst.execute();
+                registrationResponse.setResult("confirm");
+            }
+        }
+        catch (SQLException e)
+        {
+            e.printStackTrace();
+            registrationResponse.setResult("deny");
+        }
+        finally
+        {
+            return registrationResponse;
+        }
     }
 
 }

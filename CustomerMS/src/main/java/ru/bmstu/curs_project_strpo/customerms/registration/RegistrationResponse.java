@@ -1,15 +1,15 @@
-package ru.bmstu.curs_project_strpo.customerms;
+package ru.bmstu.curs_project_strpo.customerms.registration;
 
-public class AuthResponse
+public class RegistrationResponse
 {
     private String operation;
     private String result;
 
-    public AuthResponse()
+    public RegistrationResponse()
     {
     }
 
-    public AuthResponse(String operation, String result)
+    public RegistrationResponse(String operation, String result)
     {
         this.operation = operation;
         this.result = result;

@@ -5,6 +5,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
+import ru.bmstu.curs_project_strpo.customerms.auth.AuthRequest;
+import ru.bmstu.curs_project_strpo.customerms.auth.AuthResponse;
+import ru.bmstu.curs_project_strpo.customerms.registration.RegistrationRequest;
+import ru.bmstu.curs_project_strpo.customerms.registration.RegistrationResponse;
 
 import java.util.List;
 
@@ -39,10 +43,23 @@ public class CustomerMsController
     @PostMapping("/auth")
     public AuthResponse auth(@RequestBody AuthRequest authRequest)
     {
-        System.out.println("Получен запрос");
-
-        AuthResponse result = customerDao.auth(authRequest.getLogin(), authRequest.getPassword());
-        AuthResponse responseToApiGateway = new AuthResponse();
+        AuthResponse responseToApiGateway = customerDao.auth(
+                authRequest.getLogin(),
+                authRequest.getPassword()
+        );
         return responseToApiGateway;
     }
+
+    @PostMapping("/registration")
+    public RegistrationResponse registration(@RequestBody RegistrationRequest registrationRequest)
+    {
+        RegistrationResponse responseToApiGateway = customerDao.registration(
+                registrationRequest.getLogin(),
+                registrationRequest.getPassword(),
+                registrationRequest.getFirst_name(),
+                registrationRequest.getLast_name()
+        );
+        return responseToApiGateway;
+    }
+
 }
