@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import ru.bmstu.curs_project_strpo.apigateway.customer.AuthRequest;
+import ru.bmstu.curs_project_strpo.apigateway.customer.GetCustomerInfoRequest;
 import ru.bmstu.curs_project_strpo.apigateway.customer.RegistrationRequest;
 
 import java.io.*;
@@ -25,5 +26,12 @@ public class ApiGatewayController
     {
         return PostRequest.postRequest(CUSTOMER_URL + "registration",
                 registrationRequest.toString());
+    }
+
+    @PostMapping("/getcustomerinfo")
+    public String getCustomerInfo(@RequestBody GetCustomerInfoRequest getCustomerInfoRequest) throws IOException
+    {
+        return PostRequest.postRequest(CUSTOMER_URL + "getcustomerinfo",
+                getCustomerInfoRequest.toString());
     }
 }

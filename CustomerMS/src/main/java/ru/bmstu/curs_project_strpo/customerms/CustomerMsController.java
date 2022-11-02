@@ -7,6 +7,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import ru.bmstu.curs_project_strpo.customerms.auth.AuthRequest;
 import ru.bmstu.curs_project_strpo.customerms.auth.AuthResponse;
+import ru.bmstu.curs_project_strpo.customerms.get_customer_info.GetCustomerInfoRequest;
+import ru.bmstu.curs_project_strpo.customerms.get_customer_info.GetCustomerInfoResponse;
 import ru.bmstu.curs_project_strpo.customerms.registration.RegistrationRequest;
 import ru.bmstu.curs_project_strpo.customerms.registration.RegistrationResponse;
 
@@ -60,6 +62,17 @@ public class CustomerMsController
                 registrationRequest.getLast_name()
         );
         return responseToApiGateway;
+    }
+
+    @PostMapping("/getcustomerinfo")
+    public GetCustomerInfoResponse getCustomerInfo(@RequestBody GetCustomerInfoRequest getCustomerInfoRequest)
+    {
+        GetCustomerInfoResponse response = customerDao.getCustomerInfo(
+                getCustomerInfoRequest.getType(),
+                getCustomerInfoRequest.getIdentifier()
+        );
+
+        return response;
     }
 
 }

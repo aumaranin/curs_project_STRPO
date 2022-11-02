@@ -2,6 +2,7 @@ package ru.bmstu.curs_project_strpo.customerms;
 
 import org.springframework.stereotype.Component;
 import ru.bmstu.curs_project_strpo.customerms.auth.AuthResponse;
+import ru.bmstu.curs_project_strpo.customerms.get_customer_info.GetCustomerInfoResponse;
 import ru.bmstu.curs_project_strpo.customerms.registration.RegistrationResponse;
 
 import java.sql.*;
@@ -122,6 +123,53 @@ public class CustomerDao
         {
             return registrationResponse;
         }
+    }
+
+    public GetCustomerInfoResponse getCustomerInfo(String type, String identifier)
+    {
+        GetCustomerInfoResponse getCustomerInfoResponse = new GetCustomerInfoResponse();
+        getCustomerInfoResponse.setOperation("getcustomerinfo");
+
+        try
+        {
+            PreparedStatement prst;
+            if (type.equals("login"))
+            {
+                prst = connection.prepareStatement(
+                        "SELECT * FROM customers WHERE login=?");
+                prst.setString(1, identifier);
+            }
+            else
+            {
+                prst = connection.prepareStatement(
+                        "SELECT * FROM customers WHERE id=?");
+                prst.setInt(1, Integer.parseInt(identifier));
+            }
+
+            ResultSet resultSet = prst.executeQuery();
+            if (!resultSet.next())
+                getCustomerInfoResponse.setResult("deny");
+            else
+            {
+                Customer customer = new Customer();
+                customer.setId(resultSet.getInt("id"));
+                customer.setLogin(resultSet.getString("login"));
+                customer.setPassword(resultSet.getString("password"));
+                customer.setFirst_name(resultSet.getString("first_name"));
+                customer.setLast_name(resultSet.getString("last_name"));
+                customer.setCurrency(resultSet.getInt("currency"));
+                getCustomerInfoResponse.setData(customer);
+                getCustomerInfoResponse.setResult("confirm");
+
+            }
+        }
+        catch (SQLException e)
+        {
+            e.printStackTrace();
+            getCustomerInfoResponse.setResult("deny");
+        }
+
+        return getCustomerInfoResponse;
     }
 
 }

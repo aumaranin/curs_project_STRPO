@@ -12,7 +12,7 @@ services:
       - POSTGRES_PASSWORD=storehousebd
     volumes:
       #- ${PWD}/StorehouseBD/:/db
-      - ${PWD}/StorehouseBD/sql:/docker-entrypoint-initdb.d
+      - ${PWD}/StorehouseBD:/docker-entrypoint-initdb.d
 
   customerbd:
     image: postgres
@@ -30,12 +30,16 @@ services:
   #   container_name: storehousems
   #   ports:
   #     - "8040:8080"
+  #   depends_on:
+  #     - storehousebd
 
   # customerms:
   #   build: ./CustomerMS
   #   container_name: customerms
   #   ports:
   #     - "8041:8080"
+  #   depends_on:
+  #     - customerbd
   
   # miniconsole3:
   #   build: ./MiniConsole3
