@@ -2,6 +2,7 @@ package ru.bmstu.curs_project_strpo.customerms;
 
 import org.springframework.stereotype.Component;
 import ru.bmstu.curs_project_strpo.customerms.auth.AuthResponse;
+import ru.bmstu.curs_project_strpo.customerms.checkCurrency.CheckCurrencyResponse;
 import ru.bmstu.curs_project_strpo.customerms.get_customer_info.GetCustomerInfoResponse;
 import ru.bmstu.curs_project_strpo.customerms.registration.RegistrationResponse;
 
@@ -171,5 +172,38 @@ public class CustomerDao
 
         return getCustomerInfoResponse;
     }
+
+    public CheckCurrencyResponse checkCurrency(int id, int count)
+    {
+        CheckCurrencyResponse checkCurrencyResponse = new CheckCurrencyResponse();
+        checkCurrencyResponse.setOperation("checkcurrency");
+
+        try
+        {
+            PreparedStatement prst = connection.prepareStatement(
+                    "SELECT currency FROM customers WHERE id=?");
+            prst.setInt(1, id);
+
+            ResultSet resultSet = prst.executeQuery();
+            if (!resultSet.next())
+                checkCurrencyResponse.setResult("error");
+            else
+            {
+                int currentCurrency = resultSet.getInt("currency");
+                if (currentCurrency < count)
+                    checkCurrencyResponse.setResult("deny");
+                else
+                    checkCurrencyResponse.setResult("confirm");
+            }
+        }
+        catch (SQLException e)
+        {
+            e.printStackTrace();
+            checkCurrencyResponse.setResult("error");
+        }
+
+        return checkCurrencyResponse;
+    }
+
 
 }

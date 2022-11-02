@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import ru.bmstu.curs_project_strpo.apigateway.customer.AuthRequest;
+import ru.bmstu.curs_project_strpo.apigateway.customer.CheckCurrencyRequest;
 import ru.bmstu.curs_project_strpo.apigateway.customer.GetCustomerInfoRequest;
 import ru.bmstu.curs_project_strpo.apigateway.customer.RegistrationRequest;
 
@@ -33,5 +34,12 @@ public class ApiGatewayController
     {
         return PostRequest.postRequest(CUSTOMER_URL + "getcustomerinfo",
                 getCustomerInfoRequest.toString());
+    }
+
+    @PostMapping("/checkcurrency")
+    public String checkCurrency(@RequestBody CheckCurrencyRequest checkCurrencyRequest) throws IOException
+    {
+        return PostRequest.postRequest(CUSTOMER_URL + "checkcurrency",
+                checkCurrencyRequest.toString());
     }
 }
