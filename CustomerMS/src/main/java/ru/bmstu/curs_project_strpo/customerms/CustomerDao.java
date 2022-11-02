@@ -35,7 +35,7 @@ public class CustomerDao
         }
     }
 
-    //Метод для поиска всех книг в базе данных
+    //Метод для поиска всех клиентов в базе данных
     public List<Customer> show_all()
     {
         List<Customer> customers = new ArrayList<>();

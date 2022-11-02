@@ -29,7 +29,7 @@ services:
   #   build: ./StorehouseMS
   #   container_name: storehousems
   #   ports:
-  #     - "8040:8080"
+  #     - "8040:8040"
   #   depends_on:
   #     - storehousebd
 
@@ -37,7 +37,7 @@ services:
   #   build: ./CustomerMS
   #   container_name: customerms
   #   ports:
-  #     - "8041:8080"
+  #     - "8041:8041"
   #   depends_on:
   #     - customerbd
   
