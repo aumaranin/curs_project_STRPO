@@ -5,10 +5,7 @@ import com.fasterxml.jackson.databind.SerializationFeature;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
-import ru.bmstu.curs_project_strpo.apigateway.customer.AuthRequest;
-import ru.bmstu.curs_project_strpo.apigateway.customer.CheckCurrencyRequest;
-import ru.bmstu.curs_project_strpo.apigateway.customer.GetCustomerInfoRequest;
-import ru.bmstu.curs_project_strpo.apigateway.customer.RegistrationRequest;
+import ru.bmstu.curs_project_strpo.apigateway.customer.*;
 
 import java.io.*;
 
@@ -41,5 +38,12 @@ public class ApiGatewayController
     {
         return PostRequest.postRequest(CUSTOMER_URL + "checkcurrency",
                 checkCurrencyRequest.toString());
+    }
+
+    @PostMapping("/changecurrency")
+    public String changeCurrency(@RequestBody ChangeCurrencyRequest changeCurrencyRequest) throws IOException
+    {
+        return PostRequest.postRequest(CUSTOMER_URL + "changecurrency",
+                changeCurrencyRequest.toString());
     }
 }

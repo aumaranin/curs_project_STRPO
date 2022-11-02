@@ -1,4 +1,4 @@
-package ru.bmstu.curs_project_strpo.customerms.checkCurrency;
+package ru.bmstu.curs_project_strpo.customerms.checkcurrency;
 
 public class CheckCurrencyResponse
 {

@@ -2,7 +2,8 @@ package ru.bmstu.curs_project_strpo.customerms;
 
 import org.springframework.stereotype.Component;
 import ru.bmstu.curs_project_strpo.customerms.auth.AuthResponse;
-import ru.bmstu.curs_project_strpo.customerms.checkCurrency.CheckCurrencyResponse;
+import ru.bmstu.curs_project_strpo.customerms.changecurrency.ChangeCurrencyResponse;
+import ru.bmstu.curs_project_strpo.customerms.checkcurrency.CheckCurrencyResponse;
 import ru.bmstu.curs_project_strpo.customerms.get_customer_info.GetCustomerInfoResponse;
 import ru.bmstu.curs_project_strpo.customerms.registration.RegistrationResponse;
 
@@ -203,6 +204,41 @@ public class CustomerDao
         }
 
         return checkCurrencyResponse;
+    }
+
+    public ChangeCurrencyResponse changeCurrency(int id, int count)
+    {
+        ChangeCurrencyResponse changeCurrencyResponse = new ChangeCurrencyResponse();
+        changeCurrencyResponse.setOperation("changecurrency");
+
+        try
+        {
+            PreparedStatement prst = connection.prepareStatement(
+                    "SELECT currency FROM customers WHERE id=?");
+            prst.setInt(1, id);
+
+            ResultSet resultSet = prst.executeQuery();
+            if (!resultSet.next())
+                changeCurrencyResponse.setResult("error");
+            else
+            {
+                int currentCurrency = resultSet.getInt("currency");
+                int newCurrency = currentCurrency + count;
+                PreparedStatement prst2 = connection.prepareStatement(
+                        "UPDATE customers SET currency=? WHERE id=?");
+                prst2.setInt(1, newCurrency);
+                prst2.setInt(2, id);
+                prst2.execute();
+                changeCurrencyResponse.setResult("confirm");
+            }
+        }
+        catch (SQLException e)
+        {
+            e.printStackTrace();
+            changeCurrencyResponse.setResult("error");
+        }
+
+        return changeCurrencyResponse;
     }
 
 

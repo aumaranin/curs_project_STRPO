@@ -7,8 +7,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import ru.bmstu.curs_project_strpo.customerms.auth.AuthRequest;
 import ru.bmstu.curs_project_strpo.customerms.auth.AuthResponse;
-import ru.bmstu.curs_project_strpo.customerms.checkCurrency.CheckCurrencyRequest;
-import ru.bmstu.curs_project_strpo.customerms.checkCurrency.CheckCurrencyResponse;
+import ru.bmstu.curs_project_strpo.customerms.changecurrency.ChangeCurrencyRequest;
+import ru.bmstu.curs_project_strpo.customerms.changecurrency.ChangeCurrencyResponse;
+import ru.bmstu.curs_project_strpo.customerms.checkcurrency.CheckCurrencyRequest;
+import ru.bmstu.curs_project_strpo.customerms.checkcurrency.CheckCurrencyResponse;
 import ru.bmstu.curs_project_strpo.customerms.get_customer_info.GetCustomerInfoRequest;
 import ru.bmstu.curs_project_strpo.customerms.get_customer_info.GetCustomerInfoResponse;
 import ru.bmstu.curs_project_strpo.customerms.registration.RegistrationRequest;
@@ -78,7 +80,7 @@ public class CustomerMsController
     }
 
     @PostMapping("/checkcurrency")
-    public CheckCurrencyResponse getCustomerInfo(@RequestBody CheckCurrencyRequest checkCurrencyRequest)
+    public CheckCurrencyResponse checkCurrency(@RequestBody CheckCurrencyRequest checkCurrencyRequest)
     {
         CheckCurrencyResponse checkCurrencyResponse = customerDao.checkCurrency(
                 checkCurrencyRequest.getId(),
@@ -86,6 +88,17 @@ public class CustomerMsController
         );
 
         return checkCurrencyResponse;
+    }
+
+    @PostMapping("/changecurrency")
+    public ChangeCurrencyResponse changeCurrency(@RequestBody ChangeCurrencyRequest changeCurrencyRequest)
+    {
+        ChangeCurrencyResponse changeCurrencyResponse = customerDao.changeCurrency(
+                changeCurrencyRequest.getId(),
+                changeCurrencyRequest.getCount()
+        );
+
+        return changeCurrencyResponse;
     }
 
 }

@@ -1,17 +1,15 @@
-package ru.bmstu.curs_project_strpo.customerms.checkCurrency;
+package ru.bmstu.curs_project_strpo.customerms.changecurrency;
 
-public class CheckCurrencyRequest
+public class ChangeCurrencyRequest
 {
     private String operation;
     private int id;
     private int count;
 
-    public CheckCurrencyRequest()
-    {
+    public ChangeCurrencyRequest() {
     }
 
-
-    public CheckCurrencyRequest(String operation, int id, int count) {
+    public ChangeCurrencyRequest(String operation, int id, int count) {
         this.operation = operation;
         this.id = id;
         this.count = count;
