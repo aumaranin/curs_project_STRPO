@@ -11,7 +11,6 @@ services:
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=storehousebd
     volumes:
-      #- ${PWD}/StorehouseBD/:/db
       - ${PWD}/StorehouseBD:/docker-entrypoint-initdb.d
 
   customerbd:
@@ -25,24 +24,16 @@ services:
     volumes:
       - ${PWD}/CustomerBD:/docker-entrypoint-initdb.d
 
-  # storehousems:
-  #   build: ./StorehouseMS
-  #   container_name: storehousems
-  #   ports:
-  #     - "8040:8040"
-  #   depends_on:
-  #     - storehousebd
+  purchasebd:
+    image: postgres
+    container_name: purchasebd
+    ports:
+      - "5442:5432"
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=purchasebd
+    volumes:
+      - ${PWD}/PurchaseBD:/docker-entrypoint-initdb.d    
 
-  # customerms:
-  #   build: ./CustomerMS
-  #   container_name: customerms
-  #   ports:
-  #     - "8041:8041"
-  #   depends_on:
-  #     - customerbd
-  
-  # miniconsole3:
-  #   build: ./MiniConsole3
-  #   container_name: mini-console3
 
 

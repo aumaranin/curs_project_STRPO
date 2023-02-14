@@ -6,6 +6,7 @@ public class CheckCurrencyResponse
     private String result;
 
     public CheckCurrencyResponse() {
+        this.operation = "changecurrency";
     }
 
     public CheckCurrencyResponse(String operation, String result) {

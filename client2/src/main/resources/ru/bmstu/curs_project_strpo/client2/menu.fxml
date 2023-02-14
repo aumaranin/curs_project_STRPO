@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane prefHeight="251.0" prefWidth="329.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ru.bmstu.curs_project_strpo.client2.Controller.Menu">
+   <children>
+      <Button fx:id="btnHistory" layoutX="99.0" layoutY="86.0" mnemonicParsing="false" text="История покупок" />
+      <Button fx:id="btnSearch" layoutX="81.0" layoutY="136.0" mnemonicParsing="false" text="Поиск книг в магазине" />
+      <Button fx:id="btnBucket" layoutX="126.0" layoutY="184.0" mnemonicParsing="false" text="Корзина" />
+      <Button fx:id="btnPrivate" layoutX="54.0" layoutY="39.0" mnemonicParsing="false" text="Личный кабинет пользователя" />
+   </children>
+</AnchorPane>

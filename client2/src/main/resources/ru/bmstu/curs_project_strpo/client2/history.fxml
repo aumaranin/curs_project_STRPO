@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+
+<AnchorPane prefHeight="495.0" prefWidth="869.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ru.bmstu.curs_project_strpo.client2.Controller.History">
+   <children>
+      <Button fx:id="btnMenu" layoutX="379.0" layoutY="14.0" mnemonicParsing="false" text="Главное меню" />
+      <ScrollPane fx:id="scrollPane1" hbarPolicy="NEVER" layoutY="58.0" prefHeight="437.0" prefWidth="869.0" vbarPolicy="ALWAYS">
+         <content>
+            <VBox fx:id="vbox1" prefHeight="435.0" prefWidth="854.0" />
+         </content>
+      </ScrollPane>
+   </children>
+</AnchorPane>

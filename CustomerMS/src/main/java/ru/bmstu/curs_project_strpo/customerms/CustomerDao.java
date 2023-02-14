@@ -102,7 +102,7 @@ public class CustomerDao
             prst.setString(1, login);
             ResultSet resultSet = prst.executeQuery();
             if (resultSet.next())
-                registrationResponse.setResult("deny");
+                registrationResponse.setResult("current login ALREADY in Database");
             else
             {
                 prst = connection.prepareStatement(
@@ -119,7 +119,7 @@ public class CustomerDao
         catch (SQLException e)
         {
             e.printStackTrace();
-            registrationResponse.setResult("deny");
+            registrationResponse.setResult("error");
         }
         finally
         {
@@ -209,7 +209,6 @@ public class CustomerDao
     public ChangeCurrencyResponse changeCurrency(int id, int count)
     {
         ChangeCurrencyResponse changeCurrencyResponse = new ChangeCurrencyResponse();
-        changeCurrencyResponse.setOperation("changecurrency");
 
         try
         {
@@ -237,8 +236,11 @@ public class CustomerDao
             e.printStackTrace();
             changeCurrencyResponse.setResult("error");
         }
+        finally
+        {
+            return changeCurrencyResponse;
+        }
 
-        return changeCurrencyResponse;
     }
 
 

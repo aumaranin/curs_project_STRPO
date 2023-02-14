@@ -7,15 +7,15 @@ import com.fasterxml.jackson.databind.SerializationFeature;
 public class ChangeCurrencyRequest
 {
     private String operation;
-    private int id;
+    private int person_id;
     private int count;
 
     public ChangeCurrencyRequest() {
     }
 
-    public ChangeCurrencyRequest(String operation, int id, int count) {
-        this.operation = operation;
-        this.id = id;
+    public ChangeCurrencyRequest(int id, int count) {
+        this.operation = "changecurrency";
+        this.person_id = id;
         this.count = count;
     }
 
@@ -27,12 +27,12 @@ public class ChangeCurrencyRequest
         this.operation = operation;
     }
 
-    public int getId() {
-        return id;
+    public int getPerson_id() {
+        return person_id;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setPerson_id(int person_id) {
+        this.person_id = person_id;
     }
 
     public int getCount() {

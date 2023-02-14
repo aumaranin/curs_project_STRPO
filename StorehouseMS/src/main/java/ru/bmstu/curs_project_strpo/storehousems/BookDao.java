@@ -32,7 +32,7 @@ public class BookDao
     }
 
     //Метод для поиска всех книг в базе данных
-    public List<Book> show_all()
+    public List<Book> getAllBooks()
     {
         List<Book> books = new ArrayList<>();
         try
@@ -48,6 +48,7 @@ public class BookDao
                 book.setAuthor(resultSet.getString("author"));
                 book.setGenre(resultSet.getString("genre"));
                 book.setYear(resultSet.getInt("year"));
+                book.setPrice(resultSet.getInt("price"));
                 book.setCount(resultSet.getInt("count"));
                 books.add(book);
             }
@@ -57,5 +58,74 @@ public class BookDao
             e.printStackTrace();
         }
         return books;
+    }
+
+    public List<Book> getRecommendedBooks()
+    {
+        List<Book> books = new ArrayList<>();
+
+
+        return books;
+    }
+
+    public boolean checkBookQuantity(int book_id, int count)
+    {
+        boolean result = false;
+        try
+        {
+            PreparedStatement prst = connection.
+                    prepareStatement("SELECT * FROM books WHERE id=?;");
+            prst.setInt(1,book_id);
+            ResultSet resultSet = prst.executeQuery();
+            resultSet.next();
+            int storehouseCount = resultSet.getInt("count");
+            if (count > storehouseCount)
+                result = false;
+            else
+                result = true;
+        }
+        catch (SQLException e)
+        {
+            e.printStackTrace();
+        }
+        finally
+        {
+            return result;
+        }
+    }
+
+    public String dropBook(int book_id, int count)
+    {
+        String result = null;
+        try
+        {
+            //Получаем текущее количество книг
+            PreparedStatement prst = connection.
+                    prepareStatement("SELECT * FROM books WHERE id=?;");
+            prst.setInt(1,book_id);
+            ResultSet resultSet = prst.executeQuery();
+            resultSet.next();
+
+            //Изменяем количество
+            int storehouseCount = resultSet.getInt("count");
+            int changed_count = storehouseCount - count;
+
+            //Вносим изменения в базу
+            prst = connection.
+                    prepareStatement("UPDATE books SET count=? WHERE id=?");
+            prst.setInt(1, changed_count);
+            prst.setInt(2, book_id);
+            prst.execute();
+            result = "confirm";
+        }
+        catch (SQLException e)
+        {
+            e.printStackTrace();
+            result = "error";
+        }
+        finally
+        {
+            return result;
+        }
     }
 }

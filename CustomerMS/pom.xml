@@ -12,6 +12,7 @@
     <artifactId>CustomerMS</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>CustomerMS</name>
+    <packaging>jar</packaging>
     <description>CustomerMS</description>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -48,6 +49,7 @@
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
             </plugin>
+
         </plugins>
     </build>
 

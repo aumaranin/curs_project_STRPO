@@ -7,19 +7,21 @@ public class Book
     private String author;
     private String genre;
     private int year;
+    private int price;
     private int count;
 
     public Book()
     {
     }
 
-    public Book(int id, String title, String author, String genre, int year, int count)
+    public Book(int id, String title, String author, String genre, int year, int price, int count)
     {
         this.id = id;
         this.title = title;
         this.author = author;
         this.genre = genre;
         this.year = year;
+        this.price = price;
         this.count = count;
     }
 
@@ -81,5 +83,15 @@ public class Book
     public void setCount(int count)
     {
         this.count = count;
+    }
+
+    public int getPrice()
+    {
+        return price;
+    }
+
+    public void setPrice(int price)
+    {
+        this.price = price;
     }
 }

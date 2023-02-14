@@ -6,11 +6,7 @@ public class ChangeCurrencyResponse
     private String result;
 
     public ChangeCurrencyResponse() {
-    }
-
-    public ChangeCurrencyResponse(String operation, String result) {
-        this.operation = operation;
-        this.result = result;
+        this.operation = "changecurrency";
     }
 
     public String getOperation() {

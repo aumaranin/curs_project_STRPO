@@ -33,20 +33,7 @@ public class CustomerMsController
         this.customerDao = customerDao;
     }
 
-    @GetMapping("/test")
-    public String test()
-    {
-
-        List<Customer> customers = customerDao.show_all();
-
-        String res = "Customer Controller";
-        return customers.get(1).getFirst_name();
-
-
-        //return "123123123";
-    }
-
-    @PostMapping("/auth")
+     @PostMapping("/auth")
     public AuthResponse auth(@RequestBody AuthRequest authRequest)
     {
         AuthResponse responseToApiGateway = customerDao.auth(
@@ -94,7 +81,7 @@ public class CustomerMsController
     public ChangeCurrencyResponse changeCurrency(@RequestBody ChangeCurrencyRequest changeCurrencyRequest)
     {
         ChangeCurrencyResponse changeCurrencyResponse = customerDao.changeCurrency(
-                changeCurrencyRequest.getId(),
+                changeCurrencyRequest.getPerson_id(),
                 changeCurrencyRequest.getCount()
         );
 
