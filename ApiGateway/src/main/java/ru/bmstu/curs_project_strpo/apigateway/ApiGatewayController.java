@@ -1,11 +1,13 @@
 package ru.bmstu.curs_project_strpo.apigateway;
 
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import ru.bmstu.curs_project_strpo.apigateway.customer.*;
 import ru.bmstu.curs_project_strpo.apigateway.purchase.*;
 import ru.bmstu.curs_project_strpo.apigateway.storehouse.GetBooksRequest;
+import ru.bmstu.curs_project_strpo.apigateway.test.TestResponse;
 
 import java.io.*;
 
@@ -15,6 +17,19 @@ public class ApiGatewayController
     private static final String STOREHOUSE_URL = "http://localhost:8040/";
     private static final String CUSTOMER_URL = "http://localhost:8041/";
     private static final String PURCHASE_URL = "http://localhost:8042/";
+
+    @GetMapping("test")
+    public String testGet()
+    {
+        return "Сервис: API-шлюз\n\tСтатус: работает\n";
+    }
+
+    @PostMapping("test")
+    public TestResponse testPost()
+    {
+        return new TestResponse("ok");
+    }
+
     @PostMapping("/auth")
     public String auth(@RequestBody AuthRequest authRequest) throws IOException
     {

@@ -14,7 +14,9 @@
     <name>PurchaseMS</name>
     <description>PurchaseMS</description>
     <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <java.version>17</java.version>
+        <exec.mainClass>ru.bmstu.curs_project_strpo.purchasems.purchasems.PurchaseMsApplication</exec.mainClass>
     </properties>
     <dependencies>
         <dependency>
@@ -35,6 +37,7 @@
     </dependencies>
 
     <build>
+        <finalName>purchasems</finalName>
         <plugins>
             <plugin>
                 <groupId>org.springframework.boot</groupId>

@@ -1,6 +1,7 @@
 package ru.bmstu.curs_project_strpo.purchasems.purchasems;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -13,6 +14,7 @@ import ru.bmstu.curs_project_strpo.purchasems.purchasems.history.GetHistoryReque
 import ru.bmstu.curs_project_strpo.purchasems.purchasems.history.GetHistoryResponse;
 import ru.bmstu.curs_project_strpo.purchasems.purchasems.storehousems.CheckBookQuantityRequest;
 import ru.bmstu.curs_project_strpo.purchasems.purchasems.storehousems.DropBookRequest;
+import ru.bmstu.curs_project_strpo.purchasems.purchasems.test.TestResponse;
 
 import java.text.SimpleDateFormat;
 import java.util.*;
@@ -35,6 +37,18 @@ public class PurchaseMsController
     {
         this.buyNoteDao = buyNoteDao;
         this.basketDao = basketDao;
+    }
+
+    @GetMapping("test")
+    public String testGet()
+    {
+        return "Сервис: PurchaseMS\n\tСтатус: работает\n";
+    }
+
+    @PostMapping("test")
+    public TestResponse testPost()
+    {
+        return new TestResponse("ok");
     }
 
     @PostMapping("/gethistory")

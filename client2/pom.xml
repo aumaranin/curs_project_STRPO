@@ -11,7 +11,9 @@
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <java.version>17</java.version>
         <junit.version>5.9.1</junit.version>
+        <exec.mainClass>ru.bmstu.curs_project_strpo.client2.Main</exec.mainClass>
     </properties>
 
     <dependencies>
@@ -48,6 +50,7 @@
     </dependencies>
 
     <build>
+        <finalName>client</finalName>
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>

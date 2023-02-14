@@ -5,6 +5,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
+import ru.bmstu.curs_project_strpo.storehousems.test.TestResponse;
+
 import java.util.Random;
 
 import java.util.ArrayList;
@@ -23,6 +25,18 @@ public class StorehouseMsController
     public StorehouseMsController(BookDao bookDao)
     {
         this.bookDao = bookDao;
+    }
+
+    @GetMapping("test")
+    public String testGet()
+    {
+        return "Сервис: StorehouseMS\n\tСтатус: работает\n";
+    }
+
+    @PostMapping("test")
+    public TestResponse testPost()
+    {
+        return new TestResponse("ok");
     }
 
     @PostMapping("/getallbooks")

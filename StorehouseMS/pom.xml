@@ -5,7 +5,7 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>2.7.4</version>
+        <version>3.0.2</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>ru.bmstu.curs_project_strpo</groupId>
@@ -15,7 +15,7 @@
     <description>StorehouseMS</description>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <java.version>11</java.version>
+        <java.version>17</java.version>
         <exec.mainClass>ru.bmstu.curs_project_strpo.storehousems.StorehouseMsApplication</exec.mainClass>
     </properties>
     <dependencies>
@@ -40,6 +40,7 @@
     </dependencies>
 
     <build>
+        <finalName>storehousems</finalName>
         <plugins>
             <plugin>
                 <groupId>org.springframework.boot</groupId>

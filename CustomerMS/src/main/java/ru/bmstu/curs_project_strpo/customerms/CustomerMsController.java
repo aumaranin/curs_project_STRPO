@@ -15,6 +15,7 @@ import ru.bmstu.curs_project_strpo.customerms.get_customer_info.GetCustomerInfoR
 import ru.bmstu.curs_project_strpo.customerms.get_customer_info.GetCustomerInfoResponse;
 import ru.bmstu.curs_project_strpo.customerms.registration.RegistrationRequest;
 import ru.bmstu.curs_project_strpo.customerms.registration.RegistrationResponse;
+import ru.bmstu.curs_project_strpo.customerms.test.TestResponse;
 
 import java.util.List;
 
@@ -31,6 +32,18 @@ public class CustomerMsController
     public CustomerMsController(CustomerDao customerDao)
     {
         this.customerDao = customerDao;
+    }
+
+    @GetMapping("test")
+    public String testGet()
+    {
+        return "Сервис: CustomerMS\n\tСтатус: работает\n";
+    }
+
+    @PostMapping("test")
+    public TestResponse testPost()
+    {
+        return new TestResponse("ok");
     }
 
      @PostMapping("/auth")

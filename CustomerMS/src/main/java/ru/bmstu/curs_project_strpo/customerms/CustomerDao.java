@@ -14,7 +14,8 @@ import java.util.List;
 @Component
 public class CustomerDao
 {
-    private static String URL = "jdbc:postgresql://localhost:5441/customerbd";;
+    private static String URL = "jdbc:postgresql://localhost:5441/customerbd";
+    //private static String URL = "jdbc:postgresql://customerbd:5432/customerbd";
     private static final String USERNAME = "postgres";
     private static final String PASSWORD = "customerbd";
 
@@ -22,9 +23,17 @@ public class CustomerDao
     //Создание и настройка соединения с базой данных
     private static Connection connection;
     static {
+        try
+        {
+            Thread.sleep(15000);
+        } catch (InterruptedException e)
+        {
+            throw new RuntimeException(e);
+        }
         try {
             Class.forName("org.postgresql.Driver");
         } catch (ClassNotFoundException e) {
+            System.out.println("СОЕДИНЕНИЕ С БАЗОЙ ДАННЫХ CUSTOMERBD НЕ УСТАНОВЛЕНО");
             e.printStackTrace();
         }
 
