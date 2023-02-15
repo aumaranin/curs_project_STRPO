@@ -6,7 +6,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="form" prefHeight="298.0" prefWidth="412.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ru.bmstu.curs_project_strpo.client2.Controller.Login">
+<AnchorPane fx:id="form" prefHeight="298.0" prefWidth="412.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ru.bmstu.curs_project_strpo.client2.Controller.Login">
    <children>
       <TextField fx:id="textLogin" layoutX="131.0" layoutY="52.0" />
       <Label fx:id="label1" layoutX="141.0" layoutY="32.0" text="Имя пользователя">
