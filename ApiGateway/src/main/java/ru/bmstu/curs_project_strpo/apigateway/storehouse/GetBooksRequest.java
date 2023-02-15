@@ -7,6 +7,7 @@ import com.fasterxml.jackson.databind.SerializationFeature;
 public class GetBooksRequest
 {
     private String operation;
+    private int person_id;
 
     public GetBooksRequest()
     {
@@ -40,5 +41,15 @@ public class GetBooksRequest
             throw new RuntimeException(e);
         }
         return jsonResult;
+    }
+
+    public int getPerson_id()
+    {
+        return person_id;
+    }
+
+    public void setPerson_id(int person_id)
+    {
+        this.person_id = person_id;
     }
 }

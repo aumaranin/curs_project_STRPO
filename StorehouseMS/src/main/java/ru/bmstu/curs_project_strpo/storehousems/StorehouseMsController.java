@@ -7,10 +7,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import ru.bmstu.curs_project_strpo.storehousems.test.TestResponse;
 
-import java.util.Random;
-
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 //Аннотация контроллер дает классу дополниительные возможности в соответствии с шаблоном
 //проектирования MVC (Model-View-Controller). Подобный класс расширяет свои возможности
@@ -59,6 +56,8 @@ public class StorehouseMsController
         return i;
     }
 
+    //Старая служба рекомендаций
+    /*
     @PostMapping("/getrecommendedbooks")
     public GetBooksResponse getRecommendedBooks()
     {
@@ -81,9 +80,10 @@ public class StorehouseMsController
 
         return getBooksResponse;
     }
+     */
 
-    @PostMapping("/getrecommendedbooks2")
-    public GetBooksResponse getRecommendedBooks2()
+    @PostMapping("/getrecommendedbooks")
+    public GetBooksResponse getRecommendedBooks(@RequestBody GetRecommendedBooksRequest getRecommendedBooksRequest)
     {
         GetBooksResponse getBooksResponse = new GetBooksResponse();
         getBooksResponse.setOperation("getrecommendedbooks");
@@ -92,24 +92,70 @@ public class StorehouseMsController
         List<Book> allBooks = bookDao.getAllBooks();
 
         //загружаем историю покупок пользователя
-
-        //из всех книг вычитаем книги, которые он уже читал
-
-        //выбираем всех авторов, которых читал пользователь
-
-        //из оставшихся книг заполняем новый массив с этими авторами
+        String getHistoryRequest = "{\n" + "  \"operation\": \"getrecommendedbooks\",\n" + "  \"person_id\": \"" + getRecommendedBooksRequest.getPerson_id() + "\"\n" + "}";
+        String historyResponse = PostRequest.postRequest(StorehouseMsApplication.properties.getHistoryMsURL() + "gethistory", getHistoryRequest);
+        //десериализация из JSON в ассоциативный массив
+        Map<String, Object> historyResponseMap = Deserialization.deserializeJson(historyResponse);
+        List<Map<String, Object>> histories = (List<Map<String, Object>>)historyResponseMap.get("history");
 
         //если список пуст - рандомные книги
-
-
-        List<Book> recBooks = new ArrayList<>();
-        for (int i=0; i<3; i++)
+        if (histories == null || histories.isEmpty())
         {
-            int num = rand(0,allBooks.size());
-            Book book = allBooks.get(num);
-            allBooks.remove(num);
-            recBooks.add(book);
+            List<Book> recBooks = new ArrayList<>();
+            for (int i=0; i<3; i++)
+            {
+                int num = rand(0,allBooks.size());
+                Book book = allBooks.get(num);
+                allBooks.remove(num);
+                recBooks.add(book);
+            }
+            getBooksResponse.setResult("confirm");
+            getBooksResponse.setBooks(recBooks);
+
+            return getBooksResponse;
         }
+
+        HashSet<String> authors = new HashSet<>();
+        HashSet<Integer> readedBooksId = new HashSet<>();
+        for (Map<String, Object> item: histories)
+        {
+            //выписываем всех уникальных авторов в множество authors
+            String author = (String)item.get("author");
+            authors.add(author);
+
+            //выписываем все уникальные книги в множество readedBooksId
+            Integer book_id = (Integer)item.get("book_id");
+            readedBooksId.add(book_id);
+        }
+
+        //из всех книг вычитаем книги, которые он уже читал
+        List<Book> shortedBookList = new ArrayList<>(allBooks);
+        for (Book book : allBooks)
+        {
+            if (readedBooksId.contains(book.getId()))
+                shortedBookList.remove(book);
+        }
+
+        //из оставшихся книг заполняем новый массив с авторами, которых читал покупатель
+        List<Book> recBooks = new ArrayList<>();
+        for (Book book : shortedBookList)
+        {
+            if (authors.contains(book.getAuthor()))
+                recBooks.add(book);
+        }
+
+        //если подходящих книг не найдено - выборка трех случайных книг
+        if (recBooks==null || recBooks.isEmpty())
+        {
+            for (int i = 0; i < 3; i++)
+            {
+                int num = rand(0, shortedBookList.size());
+                Book book = shortedBookList.get(num);
+                shortedBookList.remove(num);
+                recBooks.add(book);
+            }
+        }
+
         getBooksResponse.setResult("confirm");
         getBooksResponse.setBooks(recBooks);
 

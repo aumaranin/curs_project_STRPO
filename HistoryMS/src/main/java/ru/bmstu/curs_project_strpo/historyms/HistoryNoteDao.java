@@ -48,7 +48,7 @@ public class HistoryNoteDao
                 historyNote.setId((resultSet.getInt("id")));
                 historyNote.setPerson_id((resultSet.getInt("person_id")));
                 historyNote.setDate(resultSet.getString("date"));
-                historyNote.setId((resultSet.getInt("book_id")));
+                historyNote.setBook_id((resultSet.getInt("book_id")));
                 historyNote.setTitle(resultSet.getString("title"));
                 historyNote.setAuthor(resultSet.getString("author"));
                 historyNote.setGenre(resultSet.getString("genre"));

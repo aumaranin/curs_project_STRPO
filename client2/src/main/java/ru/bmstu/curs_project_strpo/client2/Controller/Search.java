@@ -74,14 +74,15 @@ public class Search {
         if (type.equals("all"))
         {
             //Подготовка JSON-запроса для микросервиса StorehouseMS для загрузки всех книг
-            getBooksRequest = "{" + "\"operation\" : \"getallbooks\"" + "}";
+            getBooksRequest = "{\n" + "  \"operation\": \"getallbooks\",\n" + "  \"person_id\": \"" + Login.active_user.getId() + "\"\n" + "}";
+
             //Отправка запроса на получение всех книг
             getBooksResponse = PostRequest.postRequest(Main.properties.getApigatewayURL() + "getallbooks", getBooksRequest);
         }
         else
         {
             //Подготовка JSON-запроса для микросервиса StorehouseMS для загрузки рекоммендуемых книг
-            getBooksRequest = "{" + "\"operation\" : \"getrecommendedbooks\"" + "}";
+            getBooksRequest = "{\n" + "  \"operation\": \"getrecommendedbooks\",\n" + "  \"person_id\": \"" + Login.active_user.getId() + "\"\n" + "}";
             //Отправка запроса на получение рекомендуемых книг
             getBooksResponse = PostRequest.postRequest(Main.properties.getApigatewayURL() + "getrecommendedbooks", getBooksRequest);
         }

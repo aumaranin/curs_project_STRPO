@@ -8,7 +8,7 @@ import ru.bmstu.curs_project_strpo.apigateway.properties.SetPropertis;
 @SpringBootApplication
 public class ApiGatewayApplication
 {
-    public static Properties properties = SetPropertis.common();
+    public static Properties properties = SetPropertis.docker();
     public static void main(String[] args)
     {
         SpringApplication.run(ApiGatewayApplication.class, args);
