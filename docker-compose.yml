@@ -35,33 +35,33 @@ services:
     volumes:
       - ${PWD}/PurchaseBD:/docker-entrypoint-initdb.d    
 
-  apigateway:
-    build: ./ApiGateway 
-    container_name: apigateway      
-    ports:
-      - "8080:8080"    
+  # apigateway:
+  #   build: ./ApiGateway 
+  #   container_name: apigateway      
+  #   ports:
+  #     - "8080:8080"    
 
-  storehousems:
-    build: ./StorehouseMS
-    container_name: storehousems
-    ports:
-      - "8040:8040"
-    depends_on:
-      - storehousebd  
+  # storehousems:
+  #   build: ./StorehouseMS
+  #   container_name: storehousems
+  #   ports:
+  #     - "8040:8040"
+  #   depends_on:
+  #     - storehousebd  
 
-  customerms:
-    build: ./CustomerMS
-    container_name: customerms
-    ports:
-      - "8041:8041"
-    depends_on:
-      - customerbd 
+  # customerms:
+  #   build: ./CustomerMS
+  #   container_name: customerms
+  #   ports:
+  #     - "8041:8041"
+  #   depends_on:
+  #     - customerbd 
 
-  purchasems:
-    build: ./PurchaseMS
-    container_name: purchasems
-    ports:
-      - "8042:8042"
-    depends_on:
-      - purchasebd
+  # purchasems:
+  #   build: ./PurchaseMS
+  #   container_name: purchasems
+  #   ports:
+  #     - "8042:8042"
+  #   depends_on:
+  #     - purchasebd
       

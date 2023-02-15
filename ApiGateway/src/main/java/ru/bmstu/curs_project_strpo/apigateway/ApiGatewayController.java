@@ -14,9 +14,9 @@ import java.io.*;
 @RestController
 public class ApiGatewayController
 {
-    private static final String STOREHOUSE_URL = "http://localhost:8040/";
-    private static final String CUSTOMER_URL = "http://localhost:8041/";
-    private static final String PURCHASE_URL = "http://localhost:8042/";
+    private static final String STOREHOUSE_URL = ApiGatewayApplication.properties.getStorehouseMsURL();
+    private static final String CUSTOMER_URL = ApiGatewayApplication.properties.getCustomerMsURL();
+    private static final String PURCHASE_URL = ApiGatewayApplication.properties.getPurchaseMsURL();
 
     @GetMapping("test")
     public String testGet()

@@ -73,7 +73,7 @@ public class Private {
 
         //Получаем информацию о пользователе по логину
         String getIdRequest = "{" + "\"operation\" : \"getcustomerinfo\", " + "\"type\" : " + "\"login\"" + "," + "\"identifier\" : " + "\"" + Login.active_user.getLogin() + "\"" + "}";
-        String getIdResponse = PostRequest.postRequest("http://localhost:8080/getcustomerinfo", getIdRequest);
+        String getIdResponse = PostRequest.postRequest(Main.properties.getApigatewayURL() + "getcustomerinfo", getIdRequest);
         Map<String, Object> map = Deserialization.deserializeJson(getIdResponse);
         map = (Map<String, Object>)map.get("data");
         ObjectMapper mapper = new ObjectMapper();
@@ -139,7 +139,7 @@ public class Private {
                         new ChangeCurrencyRequest(Login.active_user.getId(), newCurrency);
                 //Отправка JSON запроса на API-шлюз
                 String changeCurrencyResponse = PostRequest.postRequest(
-                        "http://localhost:8080/changecurrency", changeCurrencyRequest.toString());
+                        Main.properties.getApigatewayURL() + "changecurrency", changeCurrencyRequest.toString());
                 //Распознавание JSON ответа
                 Map<String, Object> map = Deserialization.deserializeJson(changeCurrencyResponse);
 

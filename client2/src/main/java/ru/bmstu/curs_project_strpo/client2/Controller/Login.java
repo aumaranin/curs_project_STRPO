@@ -76,13 +76,13 @@ public class Login
                 //ПРОВЕРКА УСПЕШНОСТИ ВХОДА В СИСТЕМУ
                 //Отправляем запрос и получаем результат
                 String authRequest = "{" + "\"operation\" : \"auth\", " + "\"login\" : " + "\"" + textLogin.getText() + "\"" + "," + "\"password\" : " + "\"" + textPassword.getText() + "\"" + "}";
-                String authResponse = PostRequest.postRequest("http://localhost:8080/auth", authRequest);
+                String authResponse = PostRequest.postRequest(Main.properties.getApigatewayURL() + "auth", authRequest);
                 Map<String, Object> map = Deserialization.deserializeJson(authResponse);
                 if (map.get("result").equals("confirm"))
                 {
                     //Получаем информацию о пользователе по логину
                     String getIdRequest = "{" + "\"operation\" : \"getcustomerinfo\", " + "\"type\" : " + "\"login\"" + "," + "\"identifier\" : " + "\"" + textLogin.getText() + "\"" + "}";
-                    String getIdResponse = PostRequest.postRequest("http://localhost:8080/getcustomerinfo", getIdRequest);
+                    String getIdResponse = PostRequest.postRequest(Main.properties.getApigatewayURL() + "getcustomerinfo", getIdRequest);
                     map = Deserialization.deserializeJson(getIdResponse);
                     map = (Map<String, Object>)map.get("data");
                     ObjectMapper mapper = new ObjectMapper();

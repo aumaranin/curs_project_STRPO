@@ -4,11 +4,14 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import ru.bmstu.curs_project_strpo.client2.properties.Properties;
+import ru.bmstu.curs_project_strpo.client2.properties.SetPropertis;
 
 import java.io.IOException;
 
 public class Main extends Application
 {
+    public static Properties properties = SetPropertis.common();
     //Запуск потока приложения
     @Override
     public void start(Stage stage) throws IOException

@@ -51,7 +51,7 @@ public class History {
         active_user_id = Login.active_user.getId();
 
         String getHistoryRequest =  "{" + "\"operation\" : \"gethistory\", " + "\"person_id\" : " + "\"" + active_user_id + "\"}";
-        String getHistoryResponse = PostRequest.postRequest("http://localhost:8080/gethistory", getHistoryRequest);
+        String getHistoryResponse = PostRequest.postRequest(Main.properties.getApigatewayURL() + "gethistory", getHistoryRequest);
 
         //Распознавание JSON ответа
         Map<String, Object> map = Deserialization.deserializeJson(getHistoryResponse);

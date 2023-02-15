@@ -86,7 +86,7 @@ public class Registration {
                 //Отправка запроса в формате JSON на API-шлюз и CustomerMS
                 RegistrationRequest registrationRequest =
                         new RegistrationRequest("registration", login, password, firstName, lastName);
-                String registrationResponse = PostRequest.postRequest("http://localhost:8080/registration", registrationRequest.toString());
+                String registrationResponse = PostRequest.postRequest(Main.properties.getApigatewayURL() + "registration", registrationRequest.toString());
 
                 //Распознавание JSON ответа
                 Map<String, Object> map = Deserialization.deserializeJson(registrationResponse);

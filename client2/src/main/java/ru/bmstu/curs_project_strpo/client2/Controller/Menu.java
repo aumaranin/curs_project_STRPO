@@ -143,16 +143,6 @@ public class Menu
                 //закрываем форму главного меню
                 Window stageMenu = btnSearch.getScene().getWindow();
                 stageMenu.hide();
-
-
-
-
-                /*
-                //Добавление книги в историю УЖЕ ПОСЛЕ ПОКУПКИ
-                HistoryNote note = new HistoryNote(1, "2023.01.01", "Одиссея капитана Блада", "Сабатини Рафаэль", "Приключение", 2022, 1);
-                String setHistoryNoteResponse = PostRequest.postRequest("http://localhost:8080/sethistorynote", note.toString());
-
-                 */
             }
         });
 

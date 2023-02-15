@@ -11,7 +11,7 @@ import java.util.List;
 public class BookDao
 {
     //private static final String URL = "jdbc:postgresql://storehousebd:5432/storehousebd";
-    private static final String URL = "jdbc:postgresql://localhost:5440/storehousebd";
+    private static final String URL = StorehouseMsApplication.properties.getStorehouseBdURL();
     private static final String USERNAME = "postgres";
     private static final String PASSWORD = "storehousebd";
 

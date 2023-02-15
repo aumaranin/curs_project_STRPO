@@ -1,6 +1,7 @@
 package ru.bmstu.curs_project_strpo.purchasems.purchasems.history;
 
 import org.springframework.stereotype.Component;
+import ru.bmstu.curs_project_strpo.purchasems.purchasems.PurchaseMsApplication;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -9,7 +10,7 @@ import java.util.List;
 @Component
 public class BuyNoteDao
 {
-    private static final String URL = "jdbc:postgresql://localhost:5442/purchasebd";
+    private static final String URL = PurchaseMsApplication.properties.getPurchaseBdURL();
     private static final String USERNAME = "postgres";
     private static final String PASSWORD = "purchasebd";
 

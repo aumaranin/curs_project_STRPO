@@ -65,7 +65,7 @@ public class Basket {
         active_user_id = Login.active_user.getId();
         String getBasketRequest = "{" + "\"operation\" : \"getbasket\"," + "\"person_id\" : " + "\"" + active_user_id + "\"" + "}";
         //Отправка запроса на получение всех книг
-        String getBasketResponse = PostRequest.postRequest("http://localhost:8080/getbasket", getBasketRequest);
+        String getBasketResponse = PostRequest.postRequest(Main.properties.getApigatewayURL() + "getbasket", getBasketRequest);
 
         //Распознавание JSON ответа
         Map<String, Object> map = Deserialization.deserializeJson(getBasketResponse);
@@ -126,7 +126,7 @@ public class Basket {
                 active_user_id = Login.active_user.getId();
                 String clearBasketRequest = "{" + "\"operation\" : \"clearbasket\"," + "\"person_id\" : " + "\"" + active_user_id + "\"" + "}";
                 //Отправка запроса
-                String getBasketResponse = PostRequest.postRequest("http://localhost:8080/clearbasket", clearBasketRequest);
+                String getBasketResponse = PostRequest.postRequest(Main.properties.getApigatewayURL() + "clearbasket", clearBasketRequest);
 
                 //ОБНОВЛЕНИЕ СОДЕРЖИМОГО ФОРМЫ
                 loadBasket();
@@ -150,7 +150,7 @@ public class Basket {
                 active_user_id = Login.active_user.getId();
                 String buyBusketItemsRequest = "{" + "\"operation\" : \"buybusketitems\"," + "\"person_id\" : " + "\"" + active_user_id + "\"" + "}";
                 //Отправка запроса
-                String buyBusketItemsResponse = PostRequest.postRequest("http://localhost:8080/buybasketitems", buyBusketItemsRequest);
+                String buyBusketItemsResponse = PostRequest.postRequest(Main.properties.getApigatewayURL() + "buybasketitems", buyBusketItemsRequest);
                 //Распознавание JSON ответа
                 Map<String, Object> buyBusketItemsMap = Deserialization.deserializeJson(buyBusketItemsResponse);
 

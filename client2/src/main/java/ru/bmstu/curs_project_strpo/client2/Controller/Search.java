@@ -76,14 +76,14 @@ public class Search {
             //Подготовка JSON-запроса для микросервиса StorehouseMS для загрузки всех книг
             getBooksRequest = "{" + "\"operation\" : \"getallbooks\"" + "}";
             //Отправка запроса на получение всех книг
-            getBooksResponse = PostRequest.postRequest("http://localhost:8080/getallbooks", getBooksRequest);
+            getBooksResponse = PostRequest.postRequest(Main.properties.getApigatewayURL() + "getallbooks", getBooksRequest);
         }
         else
         {
             //Подготовка JSON-запроса для микросервиса StorehouseMS для загрузки рекоммендуемых книг
             getBooksRequest = "{" + "\"operation\" : \"getrecommendedbooks\"" + "}";
             //Отправка запроса на получение рекомендуемых книг
-            getBooksResponse = PostRequest.postRequest("http://localhost:8080/getrecommendedbooks", getBooksRequest);
+            getBooksResponse = PostRequest.postRequest(Main.properties.getApigatewayURL() + "getrecommendedbooks", getBooksRequest);
         }
         //десериализация из JSON в ассоциативный массив
         Map<String, Object> map = Deserialization.deserializeJson(getBooksResponse);
@@ -206,7 +206,7 @@ public class Search {
                     basketAddItemRequest.setYear(books.get(bookNumber).getYear());
                     basketAddItemRequest.setPrice(books.get(bookNumber).getPrice());
                     basketAddItemRequest.setCount(selectedCount);
-                    String basketAddItemResponse = PostRequest.postRequest("http://localhost:8080/basketadditem", basketAddItemRequest.toString());
+                    String basketAddItemResponse = PostRequest.postRequest(Main.properties.getApigatewayURL() + "basketadditem", basketAddItemRequest.toString());
                 }
 
             }
