@@ -82,6 +82,40 @@ public class StorehouseMsController
         return getBooksResponse;
     }
 
+    @PostMapping("/getrecommendedbooks2")
+    public GetBooksResponse getRecommendedBooks2()
+    {
+        GetBooksResponse getBooksResponse = new GetBooksResponse();
+        getBooksResponse.setOperation("getrecommendedbooks");
+
+        //Загружаем все книги которые есть
+        List<Book> allBooks = bookDao.getAllBooks();
+
+        //загружаем историю покупок пользователя
+
+        //из всех книг вычитаем книги, которые он уже читал
+
+        //выбираем всех авторов, которых читал пользователь
+
+        //из оставшихся книг заполняем новый массив с этими авторами
+
+        //если список пуст - рандомные книги
+
+
+        List<Book> recBooks = new ArrayList<>();
+        for (int i=0; i<3; i++)
+        {
+            int num = rand(0,allBooks.size());
+            Book book = allBooks.get(num);
+            allBooks.remove(num);
+            recBooks.add(book);
+        }
+        getBooksResponse.setResult("confirm");
+        getBooksResponse.setBooks(recBooks);
+
+        return getBooksResponse;
+    }
+
     @PostMapping("/checkbookquantity")
     public String checkBookQuantity(@RequestBody CheckBookQuantityRequest checkBookQuantityRequest)
     {
