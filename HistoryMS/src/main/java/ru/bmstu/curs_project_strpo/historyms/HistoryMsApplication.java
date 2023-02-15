@@ -9,7 +9,7 @@ import ru.bmstu.curs_project_strpo.historyms.properties.SetPropertis;
 public class HistoryMsApplication
 {
 
-    public static Properties properties = SetPropertis.common();
+    public static Properties properties = SetPropertis.docker();
     public static void main(String[] args)
     {
         SpringApplication.run(HistoryMsApplication.class, args);

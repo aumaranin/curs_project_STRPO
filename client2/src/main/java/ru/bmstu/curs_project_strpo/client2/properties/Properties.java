@@ -9,8 +9,6 @@ public class Properties
     private String purchaseMsURL;
     private String storehouseMsURL;
     private String apigatewayURL;
-    private String historyBdURL;
-    private String historyMsURL;
 
     public Properties()
     {
@@ -84,25 +82,5 @@ public class Properties
     public void setApigatewayURL(String apigatewayURL)
     {
         this.apigatewayURL = apigatewayURL;
-    }
-
-    public String getHistoryBdURL()
-    {
-        return historyBdURL;
-    }
-
-    public void setHistoryBdURL(String historyBdURL)
-    {
-        this.historyBdURL = historyBdURL;
-    }
-
-    public String getHistoryMsURL()
-    {
-        return historyMsURL;
-    }
-
-    public void setHistoryMsURL(String historyMsURL)
-    {
-        this.historyMsURL = historyMsURL;
     }
 }

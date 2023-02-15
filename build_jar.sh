@@ -13,3 +13,7 @@ cd ..
 cd ./StorehouseMS
 mvn clean package
 cd ..
+
+cd ./HistoryMS
+mvn clean package
+cd ..

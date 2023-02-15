@@ -23,7 +23,7 @@ public class HistoryMsController
     @GetMapping("test")
     public String testGet()
     {
-        return "Сервис: CustomerMS\n\tСтатус: работает\n";
+        return "Сервис: HistoryMS\n\tСтатус: работает\n";
     }
 
     @PostMapping("test")

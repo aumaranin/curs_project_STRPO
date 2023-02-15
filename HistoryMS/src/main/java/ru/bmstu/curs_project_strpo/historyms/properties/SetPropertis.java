@@ -13,7 +13,7 @@ public class SetPropertis
         properties.setStorehouseBdURL("jdbc:postgresql://storehousebd:5432/storehousebd");
         properties.setPurchaseBdURL("jdbc:postgresql://purchasebd:5432/purchasebd");
         properties.setHistoryBdURL("jdbc:postgresql://historybd:5432/historybd");
-        properties.setHistoryMsURL("http://historybd:8043/");
+        properties.setHistoryMsURL("http://historyms:8043/");
         return properties;
     }
 

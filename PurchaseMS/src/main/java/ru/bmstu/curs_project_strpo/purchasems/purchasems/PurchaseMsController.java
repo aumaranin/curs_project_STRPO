@@ -207,8 +207,8 @@ public class PurchaseMsController
     @PostMapping("/buybasketitems")
     public BuyBasketItemsResponse buyBasketItems(@RequestBody BuyBasketItemsRequest buyBasketItemsRequest)
     {
-        String result = "deny";
         BuyBasketItemsResponse responseToApiGateway = new BuyBasketItemsResponse();
+        responseToApiGateway.setResult("confirm");
         boolean flag_error = false;
         int requied_currency = 0;           //переменная с необходимой суммой денежных средств
 

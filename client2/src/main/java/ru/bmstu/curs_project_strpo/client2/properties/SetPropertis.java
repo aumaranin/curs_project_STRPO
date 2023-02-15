@@ -12,8 +12,6 @@ public class SetPropertis
         properties.setCustomerBdURL("jdbc:postgresql://customerbd:5432/customerbd");
         properties.setStorehouseBdURL("jdbc:postgresql://storehousebd:5432/storehousebd");
         properties.setPurchaseBdURL("jdbc:postgresql://purchasebd:5432/purchasebd");
-        properties.setHistoryBdURL("jdbc:postgresql://historybd:5432/historybd");
-        properties.setHistoryMsURL("http://historybd:8043/");
         return properties;
     }
     public static Properties docker()
@@ -26,8 +24,6 @@ public class SetPropertis
         properties.setCustomerBdURL("jdbc:postgresql://customerbd:5432/customerbd");
         properties.setStorehouseBdURL("jdbc:postgresql://storehousebd:5432/storehousebd");
         properties.setPurchaseBdURL("jdbc:postgresql://purchasebd:5432/purchasebd");
-        properties.setHistoryBdURL("jdbc:postgresql://historybd:5432/historybd");
-        properties.setHistoryMsURL("http://historybd:8043/");
         return properties;
     }
 
@@ -41,8 +37,6 @@ public class SetPropertis
         properties.setStorehouseBdURL("jdbc:postgresql://localhost:5440/storehousebd");
         properties.setCustomerBdURL("jdbc:postgresql://localhost:5441/customerbd");
         properties.setPurchaseBdURL("jdbc:postgresql://localhost:5442/purchasebd");
-        properties.setHistoryBdURL("jdbc:postgresql://localhost:5443/historybd");
-        properties.setHistoryMsURL("http://localhost:8043/");
         return properties;
     }
 }
