@@ -17,6 +17,7 @@ public class ApiGatewayController
     private static final String STOREHOUSE_URL = ApiGatewayApplication.properties.getStorehouseMsURL();
     private static final String CUSTOMER_URL = ApiGatewayApplication.properties.getCustomerMsURL();
     private static final String PURCHASE_URL = ApiGatewayApplication.properties.getPurchaseMsURL();
+    private static final String HISTORY_URL = ApiGatewayApplication.properties.getHistoryMsURL();
 
     @GetMapping("test")
     public String testGet()
@@ -65,12 +66,25 @@ public class ApiGatewayController
                 changeCurrencyRequest.toString());
     }
 
+    //запрос на старую gethistory
+    /*
     @PostMapping("/gethistory")
     public String getHistory(@RequestBody GetHistoryRequest getHistoryRequest) throws IOException
     {
         return PostRequest.postRequest(PURCHASE_URL + "gethistory",
                 getHistoryRequest.toString());
     }
+    */
+
+
+    @PostMapping("/gethistory")
+    public String getHistory(@RequestBody GetHistoryRequest getHistoryRequest) throws IOException
+    {
+        return PostRequest.postRequest(HISTORY_URL + "gethistory",
+                getHistoryRequest.toString());
+    }
+
+
 
     @PostMapping("/getallbooks")
     public String getAllBooks(@RequestBody GetBooksRequest getBooksRequest) throws IOException

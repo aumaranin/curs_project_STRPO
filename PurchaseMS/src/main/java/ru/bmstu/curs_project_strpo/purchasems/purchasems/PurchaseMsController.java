@@ -5,6 +5,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
+import ru.bmstu.curs_project_strpo.purchasems.purchasems.SetHistory.SetHistoryRequest;
 import ru.bmstu.curs_project_strpo.purchasems.purchasems.basket.*;
 import ru.bmstu.curs_project_strpo.purchasems.purchasems.customerms.ChangeCurrencyRequest;
 import ru.bmstu.curs_project_strpo.purchasems.purchasems.customerms.CheckCurrencyRequest;
@@ -16,6 +17,7 @@ import ru.bmstu.curs_project_strpo.purchasems.purchasems.storehousems.CheckBookQ
 import ru.bmstu.curs_project_strpo.purchasems.purchasems.storehousems.DropBookRequest;
 import ru.bmstu.curs_project_strpo.purchasems.purchasems.test.TestResponse;
 
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
@@ -25,8 +27,9 @@ import java.util.*;
 @RestController
 public class PurchaseMsController
 {
-    private static final String STOREHOUSE_URL = "http://localhost:8040/";
-    private static final String CUSTOMER_URL = "http://localhost:8041/";
+    private static final String STOREHOUSE_URL = PurchaseMsApplication.properties.getStorehouseMsURL();
+    private static final String CUSTOMER_URL = PurchaseMsApplication.properties.getCustomerMsURL();
+    private static final String HISTORY_URL = PurchaseMsApplication.properties.getHistoryMsURL();
 
     //Добавление компонентов, хранящих функции работы с базой данных
     private final BuyNoteDao buyNoteDao;
@@ -91,6 +94,7 @@ public class PurchaseMsController
         return responseToApiGateway;
     }
 
+    /*
     //обработка запроса покупки книг из корзины пользователя
     @PostMapping("/buybasketitems")
     public BuyBasketItemsResponse buyBasketItems(@RequestBody BuyBasketItemsRequest buyBasketItemsRequest)
@@ -192,6 +196,102 @@ public class PurchaseMsController
 
         if (!flag_error)
             responseToApiGateway.setResult("confirm");
+        return responseToApiGateway;
+    }
+
+     */
+
+
+    //НОВАЯ ПОКУПКА с учетом существующего сервиса HistoryMS
+    //обработка запроса покупки книг из корзины пользователя
+    @PostMapping("/buybasketitems")
+    public BuyBasketItemsResponse buyBasketItems(@RequestBody BuyBasketItemsRequest buyBasketItemsRequest)
+    {
+        String result = "deny";
+        BuyBasketItemsResponse responseToApiGateway = new BuyBasketItemsResponse();
+        boolean flag_error = false;
+        int requied_currency = 0;           //переменная с необходимой суммой денежных средств
+
+        //ПРОВЕРКА, ЕСТЬ ЛИ В КОРЗИНЕ ЧТО-ТО
+        List<Book> books = basketDao.getBasket(buyBasketItemsRequest.getPerson_id());
+        if ((books == null) || (books.isEmpty()) || (books.size() == 0))
+        {
+            flag_error = true;
+            responseToApiGateway.setResult("Корзина пуста");
+        }
+        else
+        {
+            //ПРОВЕРКА НАЛИЧИЯ ТРЕБУЕМЫХ КНИГ в микросервисе StorehouseMS
+            //подготовка запроса к StorehouseMS о проверки количества книг
+            for (Book book : books)
+            {
+                CheckBookQuantityRequest req = new CheckBookQuantityRequest(book.getId(), book.getCount());
+                String checkBookQuantityResponse = PostRequest.postRequest(STOREHOUSE_URL + "checkbookquantity", req.toString());
+                Map<String, Object> map = Deserialization.deserializeJson(checkBookQuantityResponse);
+                if (map.get("result").equals("false"))
+                {
+                    flag_error = true;
+                    responseToApiGateway.setResult("Требуемых книг на складе не хвататет.");
+                }
+            }
+
+            //ПРОВЕРКА ДЕНЕЖНЫХ СРЕДСТВ ПОЛЬЗОВАТЕЛЯ в микросервисе CustomerMS
+            //Подсчет необходимых денежных средств
+            for (Book book : books)
+                requied_currency += book.getCount() * book.getPrice();
+
+            CheckCurrencyRequest req = new CheckCurrencyRequest(buyBasketItemsRequest.getPerson_id(), requied_currency);
+            String checkCurrencyResponse = PostRequest.postRequest(CUSTOMER_URL + "checkcurrency", req.toString());
+            Map<String, Object> map = Deserialization.deserializeJson(checkCurrencyResponse);
+            if (!map.get("result").equals("confirm"))
+            {
+                flag_error = true;
+                responseToApiGateway.setResult("Денежных средств на счете пользователя не достаточно");
+            }
+        }
+
+        if (!flag_error)
+        {
+            //СНЯТИЕ СРЕДСТВ С ПОЛЬЗОВАТЕЛЯ
+            requied_currency = requied_currency * (-1);
+            ChangeCurrencyRequest req = new ChangeCurrencyRequest(buyBasketItemsRequest.getPerson_id(), requied_currency);
+            String changeCurrencyResponse = PostRequest.postRequest(CUSTOMER_URL + "changecurrency", req.toString());
+            Map<String, Object> map = Deserialization.deserializeJson(changeCurrencyResponse);
+
+            //УМЕНЬШЕНИЕ КОЛИЧЕСТВА КНИГ В STOREHOUSEMS
+            for (Book book: books)
+            {
+                //Подготавливается запрос на уменьшение книг
+                DropBookRequest dropBookRequest = new DropBookRequest(book.getId(), book.getCount());
+                String dropBookResponse = PostRequest.postRequest(STOREHOUSE_URL + "dropbook", dropBookRequest.toString());
+            }
+
+            //ОЧИСТКА КОРЗИНЫ
+            ClearBasketResponse clearBasketResponse = new ClearBasketResponse();
+            String res = basketDao.clearBasket(buyBasketItemsRequest.getPerson_id());
+            if (!res.equals("confirm"))
+                flag_error = true;
+
+            //ДОБАВЛЕНИЕ КНИГ В HISTORY
+
+            //Определяем текущее время
+            SimpleDateFormat formater = new SimpleDateFormat("yyyy.MM.dd");
+            Date curDate = new Date();
+            String currentDate = formater.format(curDate);
+
+            SetHistoryRequest setHistoryRequest =
+                    new SetHistoryRequest(buyBasketItemsRequest.getPerson_id(), currentDate, books);
+
+            //Отправка запроса на микросервис HistoryMS
+            String setHistoryResponse = PostRequest.postRequest(HISTORY_URL + "sethistory", setHistoryRequest.toString());
+
+            if (!setHistoryResponse.equals("confirm"))
+                flag_error = true;
+        }
+
+        if (!flag_error)
+            responseToApiGateway.setResult("confirm");
+
         return responseToApiGateway;
     }
 

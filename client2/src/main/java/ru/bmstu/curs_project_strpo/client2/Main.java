@@ -11,7 +11,7 @@ import java.io.IOException;
 
 public class Main extends Application
 {
-    public static Properties properties = SetPropertis.hybrid();
+    public static Properties properties = SetPropertis.common();
     //Запуск потока приложения
     @Override
     public void start(Stage stage) throws IOException

@@ -1,4 +1,4 @@
-package ru.bmstu.curs_project_strpo.purchasems.purchasems.properties;
+package ru.bmstu.curs_project_strpo.historyms.properties;
 
 public class SetPropertis
 {

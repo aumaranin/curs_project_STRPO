@@ -33,34 +33,45 @@ services:
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=purchasebd
     volumes:
-      - ${PWD}/PurchaseBD:/docker-entrypoint-initdb.d    
+      - ${PWD}/PurchaseBD:/docker-entrypoint-initdb.d   
 
-  apigateway:
-    build: ./ApiGateway 
-    container_name: apigateway      
+  historybd:
+    image: postgres
+    container_name: historybd
     ports:
-      - "8080:8080"    
+      - "5443:5432"
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=historybd
+    volumes:
+      - ${PWD}/HistoryBD:/docker-entrypoint-initdb.d          
 
-  storehousems:
-    build: ./StorehouseMS
-    container_name: storehousems
-    ports:
-      - "8040:8040"
-    depends_on:
-      - storehousebd  
+  # apigateway:
+  #   build: ./ApiGateway 
+  #   container_name: apigateway      
+  #   ports:
+  #     - "8080:8080"    
 
-  customerms:
-    build: ./CustomerMS
-    container_name: customerms
-    ports:
-      - "8041:8041"
-    depends_on:
-      - customerbd 
+  # storehousems:
+  #   build: ./StorehouseMS
+  #   container_name: storehousems
+  #   ports:
+  #     - "8040:8040"
+  #   depends_on:
+  #     - storehousebd  
 
-  purchasems:
-    build: ./PurchaseMS
-    container_name: purchasems
-    ports:
-      - "8042:8042"
-    depends_on:
-      - purchasebd
+  # customerms:
+  #   build: ./CustomerMS
+  #   container_name: customerms
+  #   ports:
+  #     - "8041:8041"
+  #   depends_on:
+  #     - customerbd 
+
+  # purchasems:
+  #   build: ./PurchaseMS
+  #   container_name: purchasems
+  #   ports:
+  #     - "8042:8042"
+  #   depends_on:
+  #     - purchasebd

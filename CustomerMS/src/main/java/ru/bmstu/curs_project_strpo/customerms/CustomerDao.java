@@ -15,8 +15,6 @@ import java.util.List;
 public class CustomerDao
 {
     private static String URL = CustomerMsApplication.properties.getCustomerBdURL();
-    //private static String URL = "jdbc:postgresql://localhost:5441/customerbd"; //нормальные
-    //private static String URL = "jdbc:postgresql://customerbd:5432/customerbd";//docker
     private static final String USERNAME = "postgres";
     private static final String PASSWORD = "customerbd";
 
@@ -24,20 +22,10 @@ public class CustomerDao
     //Создание и настройка соединения с базой данных
     private static Connection connection;
     static {
-        /*
-        try
-        {
-            Thread.sleep(15000);
-        } catch (InterruptedException e)
-        {
-            throw new RuntimeException(e);
-        }
-
-         */
         try {
             Class.forName("org.postgresql.Driver");
         } catch (ClassNotFoundException e) {
-            System.out.println("СОЕДИНЕНИЕ С БАЗОЙ ДАННЫХ CUSTOMERBD НЕ УСТАНОВЛЕНО");
+            System.out.println("ОШИБКА! Драйвер Postgres не загружен!");
             e.printStackTrace();
         }
 
@@ -45,6 +33,7 @@ public class CustomerDao
             connection = DriverManager.getConnection(URL, USERNAME, PASSWORD);
         } catch (SQLException throwables) {
             throwables.printStackTrace();
+            System.out.println("ОШИБКА! Поключение к базе данных невозможно!");
         }
     }
 
@@ -95,8 +84,14 @@ public class CustomerDao
         catch (SQLException e)
         {
             e.printStackTrace();
+            authResponse.setResult("error");
+            System.out.println("ОШИБКА! Транзакция аутентификации не выполнена!");
         }
-        return authResponse;
+        finally
+        {
+            return authResponse;
+        }
+
     }
 
     public RegistrationResponse registration(
@@ -133,6 +128,7 @@ public class CustomerDao
         {
             e.printStackTrace();
             registrationResponse.setResult("error");
+            System.out.println("ОШИБКА! Транзакция регистрации не выполнена!");
         }
         finally
         {
@@ -181,10 +177,15 @@ public class CustomerDao
         catch (SQLException e)
         {
             e.printStackTrace();
-            getCustomerInfoResponse.setResult("deny");
+            getCustomerInfoResponse.setResult("error");
+            System.out.println("ОШИБКА! Транзакция на получения данных пользователя не выполнена!");
+
+        }
+        finally
+        {
+            return getCustomerInfoResponse;
         }
 
-        return getCustomerInfoResponse;
     }
 
     public CheckCurrencyResponse checkCurrency(int id, int count)
@@ -214,9 +215,14 @@ public class CustomerDao
         {
             e.printStackTrace();
             checkCurrencyResponse.setResult("error");
+            System.out.println("ОШИБКА! Транзакция на проверку денежных средств не выполнена!");
+
+        }
+        finally
+        {
+            return checkCurrencyResponse;
         }
 
-        return checkCurrencyResponse;
     }
 
     public ChangeCurrencyResponse changeCurrency(int id, int count)
@@ -248,6 +254,8 @@ public class CustomerDao
         {
             e.printStackTrace();
             changeCurrencyResponse.setResult("error");
+            System.out.println("ОШИБКА! Транзакция на изменение денежных средств не выполнена!");
+
         }
         finally
         {

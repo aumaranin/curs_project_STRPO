@@ -10,7 +10,6 @@ import java.util.List;
 @Component
 public class BookDao
 {
-    //private static final String URL = "jdbc:postgresql://storehousebd:5432/storehousebd";
     private static final String URL = StorehouseMsApplication.properties.getStorehouseBdURL();
     private static final String USERNAME = "postgres";
     private static final String PASSWORD = "storehousebd";
@@ -22,12 +21,14 @@ public class BookDao
             Class.forName("org.postgresql.Driver");
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
+            System.out.println("ОШИБКА! Драйвер Postgres не загружен!");
         }
 
         try {
             connection = DriverManager.getConnection(URL, USERNAME, PASSWORD);
         } catch (SQLException throwables) {
             throwables.printStackTrace();
+            System.out.println("ОШИБКА! Поключение к базе данных невозможно!");
         }
     }
 
@@ -56,8 +57,14 @@ public class BookDao
         catch (SQLException e)
         {
             e.printStackTrace();
+            System.out.println("ОШИБКА! Транзакция на получение всех книг не выполнена!");
+
         }
-        return books;
+        finally
+        {
+            return books;
+        }
+
     }
 
     public List<Book> getRecommendedBooks()
@@ -87,6 +94,7 @@ public class BookDao
         catch (SQLException e)
         {
             e.printStackTrace();
+            System.out.println("ОШИБКА! Транзакция на проверку количества книг не выполнена!");
         }
         finally
         {
@@ -122,6 +130,7 @@ public class BookDao
         {
             e.printStackTrace();
             result = "error";
+            System.out.println("ОШИБКА! Транзакция на удаление книги со склада не выполнена!");
         }
         finally
         {

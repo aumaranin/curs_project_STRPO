@@ -23,12 +23,14 @@ public class BasketDao
             Class.forName("org.postgresql.Driver");
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
+            System.out.println("ОШИБКА! Драйвер Postgres не загружен!");
         }
 
         try {
             connection = DriverManager.getConnection(URL, USERNAME, PASSWORD);
         } catch (SQLException throwables) {
             throwables.printStackTrace();
+            System.out.println("ОШИБКА! Поключение к базе данных невозможно!");
         }
     }
 
@@ -52,7 +54,9 @@ public class BasketDao
         catch (SQLException e)
         {
             e.printStackTrace();
-            response.setResult("deny");
+            response.setResult("error");
+            System.out.println("ОШИБКА! Транзакция на добавление книги в корзину не выполнена!");
+
         }
         finally
         {
@@ -86,8 +90,13 @@ public class BasketDao
         catch (SQLException e)
         {
             e.printStackTrace();
+            System.out.println("ОШИБКА! Транзакция на получение книг из корзины не выполнена!");
         }
-        return books;
+        finally
+        {
+            return books;
+        }
+
     }
 
     //Метод для очистки корзины пользователя
@@ -105,7 +114,9 @@ public class BasketDao
         catch (SQLException e)
         {
             e.printStackTrace();
-            response = "deny";
+            response = "error";
+            System.out.println("ОШИБКА! Транзакция на получения заметок не выполнена!");
+
         }
         finally
         {
