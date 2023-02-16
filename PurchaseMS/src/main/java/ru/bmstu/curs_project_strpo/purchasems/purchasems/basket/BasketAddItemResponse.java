@@ -7,6 +7,7 @@ public class BasketAddItemResponse
 
     public BasketAddItemResponse()
     {
+        this.operation = "basketadditem";
     }
 
     public String getOperation()
