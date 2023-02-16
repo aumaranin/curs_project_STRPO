@@ -18,6 +18,7 @@ public class BasketAddItemRequest
 
     public BasketAddItemRequest()
     {
+        this.operation = "basketadditem";
     }
 
     public int getPerson_id()
