@@ -29,7 +29,8 @@ public class HistoryMsController
     @PostMapping("test")
     public TestResponse testPost()
     {
-        return new TestResponse("ok");
+        TestResponse result = new TestResponse("ok");
+        return result;
     }
 
     @PostMapping("/gethistory")

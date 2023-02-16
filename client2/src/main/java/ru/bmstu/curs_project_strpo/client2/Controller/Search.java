@@ -207,7 +207,9 @@ public class Search {
                     basketAddItemRequest.setYear(books.get(bookNumber).getYear());
                     basketAddItemRequest.setPrice(books.get(bookNumber).getPrice());
                     basketAddItemRequest.setCount(selectedCount);
+                    String str1 = basketAddItemRequest.toString();
                     String basketAddItemResponse = PostRequest.postRequest(Main.properties.getApigatewayURL() + "basketadditem", basketAddItemRequest.toString());
+                    System.out.println(basketAddItemResponse);
                 }
 
             }

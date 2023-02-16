@@ -282,6 +282,7 @@ public class PurchaseMsController
             SetHistoryRequest setHistoryRequest =
                     new SetHistoryRequest(buyBasketItemsRequest.getPerson_id(), currentDate, books);
 
+            String req123 = setHistoryRequest.toString();
             //Отправка запроса на микросервис HistoryMS
             String setHistoryResponse = PostRequest.postRequest(HISTORY_URL + "sethistory", setHistoryRequest.toString());
 
