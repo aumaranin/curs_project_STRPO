@@ -8,5 +8,6 @@
 docker compose up --build -d
 
 cd ./client2
-mvn clean javafx:run 2>/dev/null
+mvn clean compile javafx:run 2>/dev/null
 
+docker-compose down

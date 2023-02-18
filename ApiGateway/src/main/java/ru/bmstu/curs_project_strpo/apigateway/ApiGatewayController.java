@@ -66,25 +66,12 @@ public class ApiGatewayController
                 changeCurrencyRequest.toString());
     }
 
-    //запрос на старую gethistory
-    /*
-    @PostMapping("/gethistory")
-    public String getHistory(@RequestBody GetHistoryRequest getHistoryRequest) throws IOException
-    {
-        return PostRequest.postRequest(PURCHASE_URL + "gethistory",
-                getHistoryRequest.toString());
-    }
-    */
-
-
     @PostMapping("/gethistory")
     public String getHistory(@RequestBody GetHistoryRequest getHistoryRequest) throws IOException
     {
         return PostRequest.postRequest(HISTORY_URL + "gethistory",
                 getHistoryRequest.toString());
     }
-
-
 
     @PostMapping("/getallbooks")
     public String getAllBooks(@RequestBody GetBooksRequest getBooksRequest) throws IOException

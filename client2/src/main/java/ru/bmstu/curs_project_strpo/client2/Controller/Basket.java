@@ -61,8 +61,7 @@ public class Basket {
     {
         //ОТПРАВКА ЗАПРОСА НА PURCHASE для загрузки книг из корзины
         //Подготовка JSON-запроса для микросервиса StorehouseMS для загрузки всех книг
-        int active_user_id = 1;
-        active_user_id = Login.active_user.getId();
+        int active_user_id = Login.active_user.getId();
         String getBasketRequest = "{" + "\"operation\" : \"getbasket\"," + "\"person_id\" : " + "\"" + active_user_id + "\"" + "}";
         //Отправка запроса на получение всех книг
         String getBasketResponse = PostRequest.postRequest(Main.properties.getApigatewayURL() + "getbasket", getBasketRequest);

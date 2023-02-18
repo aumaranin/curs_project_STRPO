@@ -56,7 +56,7 @@ public class StorehouseMsController
         return i;
     }
 
-    //Старая служба рекомендаций
+    //Старая служба рекомендаций. Рекомендует просто 3 случайных книги.
     /*
     @PostMapping("/getrecommendedbooks")
     public GetBooksResponse getRecommendedBooks()
@@ -82,6 +82,7 @@ public class StorehouseMsController
     }
      */
 
+    //Новая УМНАЯ служба рекомендаций, анализирующая историю покупок покупателя.
     @PostMapping("/getrecommendedbooks")
     public GetBooksResponse getRecommendedBooks(@RequestBody GetRecommendedBooksRequest getRecommendedBooksRequest)
     {
@@ -98,7 +99,7 @@ public class StorehouseMsController
         Map<String, Object> historyResponseMap = Deserialization.deserializeJson(historyResponse);
         List<Map<String, Object>> histories = (List<Map<String, Object>>)historyResponseMap.get("history");
 
-        //если список пуст - рандомные книги
+        //если история покупок пуста - предлагаем 3 случайные книги
         if (histories == null || histories.isEmpty())
         {
             List<Book> recBooks = new ArrayList<>();
